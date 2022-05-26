@@ -1,0 +1,32 @@
+version: '3.9'
+networks:
+  solutiondelivery-network:
+    name: "solutiondelivery-network"
+services:
+  app:
+    container_name: api_solutiondelivery
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: build
+    environment:
+      POSTGRES_URL: "postgres://postgres:admin@db_solutiondelivery:5432/solutiondelivery?sslmode=disable"
+    ports:
+      - "8080:8080"
+    links:
+      - db
+    networks:
+      - solutiondelivery-network
+  db:
+    image: postgres:latest
+    container_name: db_solutiondelivery
+    environment:
+      POSTGRES_DB: solutiondelivery
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - 5432:5432
+    volumes:
+      - ./test/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - solutiondelivery-network
