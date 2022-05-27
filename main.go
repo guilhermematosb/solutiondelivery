@@ -1,26 +1,24 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
-	"os"
+	"net/http"
 
+	"github.com/guilhermematosb/solutiondelivery/domain/service"
+	"github.com/guilhermematosb/solutiondelivery/internal/infrastructure/config"
+	"github.com/guilhermematosb/solutiondelivery/internal/infrastructure/router"
 	_ "github.com/lib/pq"
 )
 
 func main() {
-	stringConexao := os.Getenv("POSTGRES_URL")
-	db, erro := sql.Open("postgres", stringConexao)
-	if erro != nil {
-		log.Fatal(erro)
-	}
-	defer db.Close()
+	config.Carregar()
 
-	if erro = db.Ping(); erro != nil {
-		log.Fatal(erro)
-	}
+	service.ImportarClientes()
 
-	fmt.Println("Conexão está abertaaaa!")
+	r := router.Gerar()
+
+	fmt.Printf("Escutando na porta %d\n", config.Porta)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Porta), r))
 
 }

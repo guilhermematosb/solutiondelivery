@@ -17,6 +17,9 @@ services:
       - db
     networks:
       - solutiondelivery-network
+    volumes:
+      - .:/opt/app/api
+      - ./data:/data
   db:
     image: postgres:latest
     container_name: db_solutiondelivery
