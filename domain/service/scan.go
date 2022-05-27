@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/guilhermematosb/solutiondelivery/domain/model"
+	"github.com/klassmann/cpfcnpj"
 )
 
 var docInvalido []string
@@ -36,14 +37,29 @@ func splitData(data []string) []model.Cliente {
 		}
 		lines := strings.Fields(v1)
 		newIndex := i1 - 1
-		parsedData[newIndex].Cpf = lines[0]
+		parsedData[newIndex].Cpf = cpfcnpj.Clean(lines[0])
 		parsedData[newIndex].Private = lines[1]
 		parsedData[newIndex].Incompleto = lines[2]
 		parsedData[newIndex].DataUltCompra = lines[3]
 		parsedData[newIndex].TicketMedio = commaToPeriod(lines[4])
 		parsedData[newIndex].TicketUltimaCompra = commaToPeriod(lines[5])
-		parsedData[newIndex].LojaMaisFreq = lines[6]
-		parsedData[newIndex].LojaUltCompra = lines[7]
+		parsedData[newIndex].LojaMaisFreq = cpfcnpj.Clean(lines[6])
+		parsedData[newIndex].LojaUltCompra = cpfcnpj.Clean(lines[7])
+		if !cpfcnpj.ValidateCPF(cpfcnpj.Clean(lines[0])) {
+			parsedData[newIndex].CpfValido = "1"
+		} else {
+			parsedData[newIndex].CpfValido = "0"
+		}
+		if lines[6] != "NULL" && !cpfcnpj.ValidateCNPJ(cpfcnpj.Clean(lines[6])) {
+			parsedData[newIndex].CnpjValido = "1"
+		} else {
+			parsedData[newIndex].CnpjValido = "0"
+		}
+		if lines[7] != "NULL" && !cpfcnpj.ValidateCNPJ(cpfcnpj.Clean(lines[7])) {
+			parsedData[newIndex].CnpjUltCompraValido = "1"
+		} else {
+			parsedData[newIndex].CnpjUltCompraValido = "0"
+		}
 	}
 
 	return parsedData
@@ -51,10 +67,9 @@ func splitData(data []string) []model.Cliente {
 
 // substitui vírgula por ponto
 func commaToPeriod(value string) string {
-	if value == "NULL" {
-		value = "0"
+	if value != "NULL" {
+		value = strings.Replace(value, ",", ".", 1)
 	}
-	value = strings.Replace(value, ",", ".", 1)
 
 	return value
 }

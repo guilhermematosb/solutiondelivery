@@ -14,6 +14,7 @@ import (
 func main() {
 	config.Carregar()
 
+	// Iniciar importação
 	service.ImportarClientes()
 
 	r := router.Gerar()

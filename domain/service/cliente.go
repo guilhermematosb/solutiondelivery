@@ -23,6 +23,9 @@ func CriarCliente(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(erro)
 	}
 
+	// Verificar CPF/CNPJ
+	cliente.Preparar()
+
 	db, erro := postgres.Conectar()
 	if erro != nil {
 		log.Fatal(erro)
@@ -58,17 +61,17 @@ func BuscarClientes(w http.ResponseWriter, r *http.Request) {
 
 // BuscarCliente busca um cliente no banco de dados
 func BuscarCliente(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("BuscarCliente"))
+	w.Write([]byte("Implementar busca de um clinete apenas"))
 }
 
 // AtualizarCliente atualiza um cliente no banco de dados
 func AtualizarCliente(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("AtualizarCliente"))
+	w.Write([]byte("Implementar atualização de um cliente"))
 }
 
 // DeletarCliente exclui um cliente no banco de dados
 func DeletarCliente(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("DeletarCliente"))
+	w.Write([]byte("Implementar deletar cliente"))
 }
 
 func ImportarClientes() {

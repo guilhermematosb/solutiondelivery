@@ -8,7 +8,4 @@ require github.com/gorilla/mux v1.8.0
 
 require github.com/joho/godotenv v1.4.0
 
-require (
-	github.com/klassmann/cpfcnpj v0.0.0-20200907140233-a595c5fd8de1
-	github.com/paemuri/brdoc v1.1.2
-)
+require github.com/klassmann/cpfcnpj v0.0.0-20200907140233-a595c5fd8de1
