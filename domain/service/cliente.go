@@ -1,6 +1,7 @@
 package service
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -89,10 +90,31 @@ func ImportarClientes() {
 	}
 	defer db.Close()
 
-	repositorio := postgres.NovoRepositorioDeCliente(db)
+	// Cria o canal
+	channel := make(chan []model.Cliente)
 	fmt.Printf("\nAguarde. Inserindo dados no banco de dados.\n")
+	// Passa como parametro a primeira metade do slice e o channel
+	go salvandoDados(finalData[:len(finalData)/2], channel, db)
+	// Passa como parametro a segunda metado do slice e o channel
+	go salvandoDados(finalData[len(finalData)/2:], channel, db)
+
+	// Recebe os resultados dos channels
+	x, y := <-channel, <-channel
+
+	fmt.Printf(x[0].ToString())
+	fmt.Printf(y[0].ToString())
+	fmt.Printf("Dados Salvos!\n\n")
+}
+
+// Funcao que soma todos os valores de um slice e envia o resultado por um channel
+func salvandoDados(finalData []model.Cliente, channel chan []model.Cliente, db *sql.DB) {
+
+	repositorio := postgres.NovoRepositorioDeCliente(db)
+
 	for i := range finalData {
 		repositorio.Criar(finalData[i])
 	}
-	fmt.Printf("Dados Salvos!\n\n")
+
+	// Envia o resultado da soma para o channel
+	channel <- finalData
 }

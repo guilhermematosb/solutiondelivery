@@ -41,3 +41,7 @@ func (cliente *Cliente) validar() error {
 
 	return nil
 }
+
+func (cliente *Cliente) ToString() string {
+	return ""
+}

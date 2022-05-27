@@ -1,9 +1,11 @@
 # solutiondelivery
 
+O serviço criado irá realizar a persistênica dos dados do arquivo base_teste.txt disponibilzado e levantará uma API.
+
 ## Sumário
 
-- [Requisitos](#requisitos).
-- [Execusão](#execusão).
+- [Requisitos](#requisitos)
+- [Execusão](#execusão)
 - [Credenciais da aplicação](#credenciais-da-aplicação)
 - [Estrutura do Banco de Dados](#estrutura-do-banco-de-dados)
 - [To-Do](#to-do)
@@ -38,13 +40,13 @@ docker compose up -d
     - **DB password** = localdev;
     - **DB host** = admin;
     - **DB port** = 5432;
-    - **DB local access url** =  http://localhost:5432
+    - **DB local access url** =  http://localhost:5432.
 
 ## Estrutura do Banco de Dados
  
 Column               |     Type      | Description
 -------------------- | ------------- | -------------------------------------
-id                   | INTEGER       | Identificador (chave primária)
+id                   | INTEGER       | Identificador (chave primária).
 cpf                  | VARCHAR       | Documento do cliente.
 private              | BOOLEAN       | Verifica se o cliente é privado.
 incompleto           | BOOLEAN       | Verifica se é incompleto.
@@ -68,4 +70,4 @@ DELETE  | http://localhost:8080/cliente/:id
 ## To-Do
 
 1. Adicionar integração contínua na plataforma do repositório com testes;
-2. Melhorar o tempo de processamento de carregamento e persistênica dos dados;
+2. Melhorar o tempo de processamento de carregamento e persistênica dos dados.
