@@ -32,9 +32,7 @@ docker compose up -d
 ````
 ## Credenciais da aplicação
 
- With the ETL service application running, follow the database credentials access with your preferred DB GUI:
-
-  - DB credentials:
+  - Credenciais do banco de dados:
     - **DB name** = solutiondelivery;
     - **DB user** = postgres;
     - **DB password** = localdev;
