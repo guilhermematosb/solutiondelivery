@@ -61,7 +61,7 @@ Método    | URL
 --------- | ------
 GET     | http://localhost:8080/clientes
 GET     | http://localhost:8080/cliente/:id 
-POST    | http://localhost:8080/cliente - {"cpf": "083.264.279-77","private": "1","incompleto": "0","data_ultima_compra": "2012-03-06","ticket_medio":"1564.00","ticket_ultima_compra":"","loja_mais_frequente":"","loja_ultima_compra":""} (json exemplo para salvar)
+POST    | http://localhost:8080/cliente - {"cpf": "000.000.000-00","private": "1","incompleto": "0","data_ultima_compra": "2012-03-06","ticket_medio":"1564.00","ticket_ultima_compra":"","loja_mais_frequente":"","loja_ultima_compra":""} (json exemplo para salvar)
 PUT     | http://localhost:8080/cliente/:id
 DELETE  | http://localhost:8080/cliente/:id
 
